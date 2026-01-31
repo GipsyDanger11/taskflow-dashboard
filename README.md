@@ -20,6 +20,8 @@ A modern, full-stack task management application built with React, TypeScript, N
 - **Vite** - Build tool
 - **Tailwind CSS** - Styling
 - **shadcn/ui** - UI components
+- **Lucide React** - Icons
+- **date-fns** - Date formatting and manipulation
 - **React Query** - Data fetching
 - **React Router** - Routing
 
@@ -129,6 +131,7 @@ taskflow-dashboard/
 | GET | `/api/tasks` | Get all tasks |
 | GET | `/api/tasks/:id` | Get a single task |
 | POST | `/api/tasks` | Create a new task |
+| POST | `/api/tasks/seed` | Populate default tasks |
 | PUT | `/api/tasks/:id` | Update a task |
 | DELETE | `/api/tasks/:id` | Delete a task |
 | GET | `/api/health` | Health check |
@@ -153,8 +156,10 @@ The application includes:
 ```typescript
 {
   title: String (required),
-  description: String (required),
+  description: String (optional),
   status: String (enum: ['pending', 'in-progress', 'completed']),
+  priority: String (enum: ['low', 'medium', 'high']),
+  dueDate: Date (optional),
   createdAt: Date (auto-generated)
 }
 ```
