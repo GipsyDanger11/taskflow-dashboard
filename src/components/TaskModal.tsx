@@ -1,9 +1,17 @@
 import { useEffect, useState } from "react";
-import { X } from "lucide-react";
+import { X, Calendar as CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   Select,
   SelectContent,
@@ -24,16 +32,30 @@ const TaskModal = ({ isOpen, onClose, onSave, task }: TaskModalProps) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState<Task["status"]>("pending");
+  const [priority, setPriority] = useState<Task["priority"]>("medium");
+  const [dueDate, setDueDate] = useState<Date | undefined>(undefined);
+  const [time, setTime] = useState("09:00");
 
   useEffect(() => {
     if (task) {
       setTitle(task.title);
       setDescription(task.description);
       setStatus(task.status);
+      setPriority(task.priority);
+      if (task.dueDate) {
+        setDueDate(new Date(task.dueDate));
+        setTime(format(new Date(task.dueDate), "HH:mm"));
+      } else {
+        setDueDate(undefined);
+        setTime("09:00");
+      }
     } else {
       setTitle("");
       setDescription("");
       setStatus("pending");
+      setPriority("medium");
+      setDueDate(undefined);
+      setTime("09:00");
     }
   }, [task, isOpen]);
 
@@ -41,11 +63,21 @@ const TaskModal = ({ isOpen, onClose, onSave, task }: TaskModalProps) => {
     e.preventDefault();
     if (!title.trim()) return;
 
+    let finalDate = dueDate;
+    if (dueDate && time) {
+      const [hours, minutes] = time.split(":").map(Number);
+      finalDate = new Date(dueDate);
+      finalDate.setHours(hours);
+      finalDate.setMinutes(minutes);
+    }
+
     onSave({
       id: task?.id,
       title: title.trim(),
       description: description.trim(),
       status,
+      priority,
+      dueDate: finalDate,
     });
     onClose();
   };
@@ -87,7 +119,7 @@ const TaskModal = ({ isOpen, onClose, onSave, task }: TaskModalProps) => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="description">Description</Label>
+            <Label htmlFor="description">Description (Optional)</Label>
             <Textarea
               id="description"
               placeholder="Add a description..."
@@ -98,18 +130,70 @@ const TaskModal = ({ isOpen, onClose, onSave, task }: TaskModalProps) => {
             />
           </div>
 
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="status">Status</Label>
+              <Select value={status} onValueChange={(value: Task["status"]) => setStatus(value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="pending">Pending</SelectItem>
+                  <SelectItem value="in-progress">In Progress</SelectItem>
+                  <SelectItem value="completed">Completed</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="priority">Priority</Label>
+              <Select value={priority} onValueChange={(value: Task["priority"]) => setPriority(value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select priority" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="low">Low</SelectItem>
+                  <SelectItem value="medium">Medium</SelectItem>
+                  <SelectItem value="high">High</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
           <div className="space-y-2">
-            <Label htmlFor="status">Status</Label>
-            <Select value={status} onValueChange={(value: Task["status"]) => setStatus(value)}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="pending">Pending</SelectItem>
-                <SelectItem value="in-progress">In Progress</SelectItem>
-                <SelectItem value="completed">Completed</SelectItem>
-              </SelectContent>
-            </Select>
+            <Label>Due Date & Time (Optional)</Label>
+            <div className="flex gap-2">
+              <Popover modal={true}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant={"outline"}
+                    className={cn(
+                      "flex-1 justify-start text-left font-normal",
+                      !dueDate && "text-muted-foreground"
+                    )}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4 text-primary" />
+                    {dueDate ? format(dueDate, "PPP") : <span>Pick a date</span>}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0 z-[60]" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={dueDate}
+                    onSelect={setDueDate}
+                    initialFocus
+                    required
+                  />
+                </PopoverContent>
+              </Popover>
+              <Input
+                type="time"
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
+                className="w-32"
+                disabled={!dueDate}
+              />
+            </div>
           </div>
 
           <div className="flex gap-3 pt-2">
