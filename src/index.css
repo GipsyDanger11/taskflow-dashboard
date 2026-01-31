@@ -2,96 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
-/* TaskFlow Design System - Clean, Modern, Minimal */
+/* TaskFlow Design System - Vibrant Wave Theme */
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    --foreground: 220 20% 10%;
+    /* Base: #362F4F - Deep purple */
+    --background: 253 25% 15%;
+    --foreground: 68 100% 90%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 220 20% 10%;
+    /* Cards - slightly lighter than background */
+    --card: 253 25% 20%;
+    --card-foreground: 68 100% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 10%;
+    --popover: 253 25% 18%;
+    --popover-foreground: 68 100% 95%;
 
-    --primary: 217 91% 60%;
+    /* Primary: #5B23FF - Vivid purple */
+    --primary: 255 100% 57%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 215 20% 95%;
-    --secondary-foreground: 220 20% 20%;
+    /* Secondary: #008BFF - Electric blue */
+    --secondary: 207 100% 50%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 215 20% 95%;
-    --muted-foreground: 215 15% 50%;
+    /* Muted */
+    --muted: 253 20% 25%;
+    --muted-foreground: 253 15% 65%;
 
-    --accent: 215 25% 92%;
-    --accent-foreground: 220 20% 15%;
+    /* Accent: #E4FF30 - Neon lime */
+    --accent: 68 100% 59%;
+    --accent-foreground: 253 25% 15%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 215 20% 90%;
-    --input: 215 20% 90%;
-    --ring: 217 91% 60%;
+    --border: 253 20% 30%;
+    --input: 253 20% 28%;
+    --ring: 255 100% 57%;
 
     --radius: 0.75rem;
 
     /* Status colors */
     --status-pending: 38 92% 50%;
-    --status-progress: 217 91% 60%;
+    --status-progress: 207 100% 50%;
     --status-completed: 142 71% 45%;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
+    /* Wave colors */
+    --wave-back: 255 100% 57%;
+    --wave-mid: 207 100% 50%;
+    --wave-front: 68 100% 59%;
 
-  .dark {
-    --background: 222 47% 8%;
-    --foreground: 210 40% 98%;
-
-    --card: 222 47% 11%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222 47% 11%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 217 91% 60%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-
-    --status-pending: 38 92% 50%;
-    --status-progress: 217 91% 60%;
-    --status-completed: 142 71% 45%;
-
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-background: 253 25% 12%;
+    --sidebar-foreground: 68 100% 90%;
+    --sidebar-primary: 255 100% 57%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 253 20% 25%;
+    --sidebar-accent-foreground: 68 100% 90%;
+    --sidebar-border: 253 20% 25%;
+    --sidebar-ring: 255 100% 57%;
   }
 }
 

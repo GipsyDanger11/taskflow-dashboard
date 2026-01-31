@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import TaskFilters, { FilterStatus } from "@/components/TaskFilters";
 import TaskList from "@/components/TaskList";
-import TaskCard, { Task } from "@/components/TaskCard";
+import { Task } from "@/components/TaskCard";
 import TaskModal from "@/components/TaskModal";
 import EmptyState from "@/components/EmptyState";
+import WaveBackground from "@/components/WaveBackground";
 
 const generateId = () => Math.random().toString(36).substring(2, 11);
 
@@ -110,7 +111,8 @@ const Index = () => {
   const showNoResults = !isLoading && tasks.length > 0 && filteredTasks.length === 0;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen relative">
+      <WaveBackground />
       <Navbar />
       
       <main className="container mx-auto px-4 py-8 max-w-5xl">

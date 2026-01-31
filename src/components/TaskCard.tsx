@@ -35,7 +35,7 @@ const TaskCard = ({ task, onEdit, onDelete }: TaskCardProps) => {
   const status = statusConfig[task.status];
 
   return (
-    <div className="group bg-card rounded-xl border border-border p-5 shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-200">
+    <div className="group bg-card/80 backdrop-blur-sm rounded-xl border border-border/50 p-5 shadow-lg hover:shadow-xl hover:border-primary/40 transition-all duration-300 hover:-translate-y-1">
       <div className="flex items-start justify-between gap-3 mb-3">
         <h3 className="font-semibold text-foreground text-lg leading-tight line-clamp-2">
           {task.title}
